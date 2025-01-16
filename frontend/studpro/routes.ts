@@ -1,5 +1,5 @@
 // filepath: /Users/praveenkumargangapuram/Desktop/Projects/studPro/frontend/src/routes.ts
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+const backendUrl = 'http://backend:3001';
 
 if (!backendUrl) {
     console.error('REACT_APP_BACKEND_URL is not defined');
