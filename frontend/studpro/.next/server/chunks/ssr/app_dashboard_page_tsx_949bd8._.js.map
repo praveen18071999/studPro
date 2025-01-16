@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/praveenkumargangapuram/Desktop/Projects/studPro/frontend/studpro/app/dashboard/page.tsx"],"sourcesContent":["'use client';\n\nimport { useEffect } from 'react';\nimport { useRouter } from 'next/navigation';\nimport React from 'react';\n\nexport default function DashboardPage() {\n  const router = useRouter();\n  useEffect(() => {\n    if (typeof window !== 'undefined') {\n      if (localStorage.getItem('access_token') == null) {\n        router.push('/authentication');\n      }\n    }\n  }, [router]);\n  return (\n    <></>\n  );\n}"],"names":[],"mappings":";;;;AAEA;AACA;AAHA;;;;AAMe,SAAS;IACtB,MAAM,SAAS,CAAA,GAAA,kIAAA,CAAA,YAAS,AAAD;IACvB,CAAA,GAAA,qMAAA,CAAA,YAAS,AAAD,EAAE;QACR,uCAAmC;;QAInC;IACF,GAAG;QAAC;KAAO;IACX,qBACE;AAEJ"}},
+    {"offset": {"line": 28, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

@@ -4,10 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { problemsLevelChart } from "../hooks/problemsLevelChart"
 
-
+type ProblemLevelData = {
+  easy: number;
+  medium: number;
+  hard: number;
+};
 export default function ProblemsDifficultyChart() {
     //debugger;
-  const { data } = problemsLevelChart();
+  const { data } = problemsLevelChart() as { data: ProblemLevelData[] | undefined };
   const data1=[
     { difficulty: 'Easy', count: data ? data[0]?.easy : 0 },
     { difficulty: 'Medium', count: data ? data[1]?.medium : 0 },

@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import { useState, useEffect } from "react";
 import Routes from '../../../routes'
 
 export function authoredProblems() {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [data, setData] = useState();
     const [easy, setEasy] = useState();
     const [medium, setMedium] = useState();
     const [hard, setHard] = useState();
@@ -26,7 +23,7 @@ export function authoredProblems() {
                 setEasy(data[0]?.easy);
                 setMedium(data[0]?.medium);
                 setHard(data[0]?.hard);
-                setData(data);
+                //setData(data);
             });
         });
     }, []);

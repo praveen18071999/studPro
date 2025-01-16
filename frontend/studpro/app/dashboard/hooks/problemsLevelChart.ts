@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Routes from '../../../routes';
 export function problemsLevelChart() {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [data, setData] = useState();
     useEffect(() => {
         fetch(Routes.PROBLEM_LEVEL_DASHBOARD_CHARTS,{
