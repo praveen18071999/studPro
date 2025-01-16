@@ -5,7 +5,7 @@ FROM node:18
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY stud-pro/package.json stud-pro/package-lock.json ./
+COPY stud-pro/package.json ./
 
 # Install dependencies
 RUN npm install
