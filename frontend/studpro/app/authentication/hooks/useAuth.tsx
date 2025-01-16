@@ -12,7 +12,7 @@ export function useAuth() {
   const handleLogin = async (email: string, password: string) => {
     try {
       const result = await login(email, password)
-      console.log(result.accessToken)
+      //console.log(result.accessToken)
       if (result.success) {
         localStorage.setItem('access_token', result.accessToken)
         router.push('/dashboard')
@@ -29,7 +29,7 @@ export function useAuth() {
   const handleSignup = async (email: string, password: string, name: string) => {
     try {
       const result = await signup(email, password, name)
-      console.log(result)
+      //console.log(result)
       if (result.success) {
         toast({ title: 'Successfull', description: 'Signup successful' })
         router.push('/authentication')

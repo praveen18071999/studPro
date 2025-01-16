@@ -1,18 +1,25 @@
+// filepath: /Users/praveenkumargangapuram/Desktop/Projects/studPro/frontend/src/routes.ts
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+
+if (!backendUrl) {
+    console.error('REACT_APP_BACKEND_URL is not defined');
+}
 const Routes = {
-    LOGIN: 'http://backend:3001/authentication/login',
-    REGISTER: 'http://backend:3001/authentication/register',
-    AUTHORED_PROBLEMS: 'http://backend:3001/dashboard/authoredProblems',
-    PROBLEM_LEVEL_DASHBOARD_CHARTS: 'http://backend:3001/dashboard/getProblemLevelDashboardCharts',
-    MONTHLY_SOLVED_PROBLEMS: 'http://backend:3001/dashboard/getMonthlySolvedProblems',
-    FLOW_CHART: 'http://backend:3001/flowchart/convertToflowchart',
-    PROBLEM_DATA: 'http://backend:3001/extractProblem/problemData',
-    CHANGE_PROGRAM: 'http://backend:3001/problemCompile/changeProgram',
-    COMPILE_AND_RUN: 'http://backend:3001/problemCompile/compileandrun',
-    SUBMIT: 'http://backend:3001/problemCompile/submit',
-    UPLOAD_FILE: 'http://backend:3001/problemCreation/uploadFile',
-    CREATE_PROBLEM: 'http://backend:3001/problemCreation/createProblem',
-    GET_USER: 'http://backend:3001/users/getUser',
-    UPDATE_USER: 'http://backend:3001/users/updateUser',
-    LEADERBOARD: 'http://backend:3001/leaderboard/getLeaderboard',
+    LOGIN: `${backendUrl}/authentication/login`,
+    REGISTER: `${backendUrl}/authentication/register`,
+    AUTHORED_PROBLEMS: `${backendUrl}/dashboard/authoredProblems`,
+    PROBLEM_LEVEL_DASHBOARD_CHARTS: `${backendUrl}/dashboard/getProblemLevelDashboardCharts`,
+    MONTHLY_SOLVED_PROBLEMS: `${backendUrl}/dashboard/getMonthlySolvedProblems`,
+    FLOW_CHART: `${backendUrl}/flowchart/convertToflowchart`,
+    PROBLEM_DATA: `${backendUrl}/extractProblem/problemData`,
+    CHANGE_PROGRAM: `${backendUrl}/problemCompile/changeProgram`,
+    COMPILE_AND_RUN: `${backendUrl}/problemCompile/compileandrun`,
+    SUBMIT: `${backendUrl}/problemCompile/submit`,
+    UPLOAD_FILE: `${backendUrl}/problemCreation/uploadFile`,
+    CREATE_PROBLEM: `${backendUrl}/problemCreation/createProblem`,
+    GET_USER: `${backendUrl}/users/getUser`,
+    UPDATE_USER: `${backendUrl}/users/updateUser`,
+    LEADERBOARD: `${backendUrl}/leaderboard/getLeaderboard`,
 };
+
 export default Routes;

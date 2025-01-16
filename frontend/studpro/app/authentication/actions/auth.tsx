@@ -33,7 +33,7 @@ export async function login(email: string, password: string) {
 
 export async function signup(email: string, password: string, name: string) {
   // Simulate API call
-  console.log(name);
+  //console.log(name);
   try {
     const response = await fetch(Routes.REGISTER, {
       method: 'POST',
