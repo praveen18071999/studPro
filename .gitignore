@@ -1,0 +1,5 @@
+# Exclude node_modules and dist folders in frontend and backend
+frontend/node_modules/
+frontend/dist/
+backend/node_modules/
+backend/dist/
