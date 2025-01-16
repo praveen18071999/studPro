@@ -25,7 +25,7 @@ export function authoredProblems() {
                 setHard(data[0]?.hard);
                 //setData(data);
             });
-        });
+        }).catch((error) => {console.log(error)});
     }, []);
     return {
         easy,

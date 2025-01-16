@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/praveenkumargangapuram/Desktop/Projects/studPro/frontend/studpro/app/problem-author/layout.tsx"],"sourcesContent":["\nimport { ReactNode } from \"react\";\nexport default function ProblemAuthorLayout({children }: { children: ReactNode }) {\n  return (\n    <>\n    {children}\n    </>\n  );\n}"],"names":[],"mappings":";;;;;AAEe,SAAS,oBAAoB,EAAC,QAAQ,EAA2B;IAC9E,qBACE;kBACC;;AAGL"}},
-    {"offset": {"line": 17, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}

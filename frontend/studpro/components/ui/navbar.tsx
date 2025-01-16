@@ -62,7 +62,7 @@ export default function Navbar() {
                   aria-orientation="vertical"
                   aria-labelledby="user-menu-button"
                 >
-                  <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-white" role="menuitem">
+                  <Link href="/userProfile" className="block px-4 py-2 text-sm text-gray-700 dark:text-white" role="menuitem">
                     Profile
                   </Link>
                   <button onClick={()=>{localStorage.removeItem('access_token');window.location.href='/authentication'}} className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white" role="menuitem">
@@ -113,7 +113,7 @@ export default function Navbar() {
               <ThemeToggle />
             </div>
             <div className="mt-3 px-2 space-y-1">
-              <Link href="/profile" className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
+              <Link href="/userProfile" className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                 Profile
               </Link>
               <button onClick={()=>{localStorage.removeItem('access_token');window.location.href='/authentication'}} className="flex items-center w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
