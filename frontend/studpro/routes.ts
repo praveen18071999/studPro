@@ -4,6 +4,7 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 if (!backendUrl) {
     console.error('REACT_APP_BACKEND_URL is not defined');
 }
+console.log(backendUrl);
 const Routes = {
     LOGIN: `${backendUrl}/authentication/login`,
     REGISTER: `${backendUrl}/authentication/register`,
