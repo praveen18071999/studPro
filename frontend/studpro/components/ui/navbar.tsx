@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, LogOut, User } from 'lucide-react'
-import ThemeToggle from '@/components/ui/ThemeToogle'
 import { usePathname } from 'next/navigation'
 import logo from '../../images/image.png'
 
@@ -38,9 +37,9 @@ export default function Navbar() {
             </div>
           </div>
           <div className="flex items-center">
-            <div className="hidden md:block">
+            {/* <div className="hidden md:block">
               <ThemeToggle />
-            </div>
+            </div> */}
             <div className="ml-3 relative hidden md:block">
               <div>
                 <button
@@ -110,7 +109,7 @@ export default function Navbar() {
                 <div className="text-base font-medium leading-none text-gray-800 dark:text-white">User Name</div>
                 <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">user@example.com</div>
               </div>
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
             </div>
             <div className="mt-3 px-2 space-y-1">
               <Link href="/userProfile" className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
