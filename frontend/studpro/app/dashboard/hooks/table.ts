@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
+import Routes from '../../../routes'
 interface Problem {
     problemid: number
     problemtitle: string
@@ -21,7 +22,7 @@ export function TableHook() {
 
 console.log(currentPage)
     useEffect(() => {
-        fetch(`http://backend:3001/dashboard/allproblems?page=${currentPage}&title=${filters.link}&level=${filters.level}&marks=${filters.marks}&author=${filters.author}`, {
+        fetch(`${Routes.TABLE}?page=${currentPage}&title=${filters.link}&level=${filters.level}&marks=${filters.marks}&author=${filters.author}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

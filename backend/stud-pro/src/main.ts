@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   const allowedOrigins = [
     "http://localhost:3000",
     "http://167.172.155.139",
@@ -11,9 +12,9 @@ async function bootstrap() {
     "https://167.172.155.139/",
   ];
   app.enableCors({
-    origin: '*',
+    origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
+    allowedHeaders: 'Content-Type, Accept,Authorization',
   });
   await app.listen(process.env.PORT ?? 3001);
 }

@@ -1,5 +1,5 @@
 // filepath: /Users/praveenkumargangapuram/Desktop/Projects/studPro/frontend/src/routes.ts
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001/api';
 
 if (!backendUrl) {
     console.error('REACT_APP_BACKEND_URL is not defined');
@@ -21,6 +21,7 @@ const Routes = {
     GET_USER: `${backendUrl}/users/getUser`,
     UPDATE_USER: `${backendUrl}/users/updateUser`,
     LEADERBOARD: `${backendUrl}/leaderboard/getLeaderboard`,
+    TABLE:`${backendUrl}/dashboard/allproblems`,
 };
 
 export default Routes;
