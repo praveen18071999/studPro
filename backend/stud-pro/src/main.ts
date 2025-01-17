@@ -11,7 +11,7 @@ async function bootstrap() {
     "https://167.172.155.139/",
   ];
   app.enableCors({
-    origin: allowedOrigins,
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Accept',
   });
