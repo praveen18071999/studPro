@@ -21,7 +21,7 @@ export function TableHook() {
 
 console.log(currentPage)
     useEffect(() => {
-        fetch(`http://localhost:3001/dashboard/allproblems?page=${currentPage}&title=${filters.link}&level=${filters.level}&marks=${filters.marks}&author=${filters.author}`, {
+        fetch(`http://backend:3001/dashboard/allproblems?page=${currentPage}&title=${filters.link}&level=${filters.level}&marks=${filters.marks}&author=${filters.author}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
