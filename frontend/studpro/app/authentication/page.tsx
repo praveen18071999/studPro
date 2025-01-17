@@ -8,9 +8,7 @@ import { Button } from '@/components/ui/button'
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true)
-  if(!localStorage.getItem('theme')){
-    localStorage.setItem('theme','light');
-  }
+  localStorage.setItem('theme','light');
   return (
     <AuthLayout title={isLogin ? 'Log in to your account' : 'Create a new account'}>
       {isLogin ? <LoginForm /> : <SignupForm />}
