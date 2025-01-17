@@ -64,6 +64,7 @@ export class ProblemCreationService {
     actualOutput: string[],
     problemLevel: string,
     problemMarks: number,
+    authorId: number,
   ) {
     try {
       const fileBuffer = file.buffer;
@@ -97,6 +98,7 @@ export class ProblemCreationService {
         marks: problemMarks,
         actualInput: actualInput,
         actualOutput: actualOutput,
+        authorId: authorId,
       };
 
       const { data, error } = await this.supabaseService

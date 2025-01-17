@@ -67,12 +67,12 @@ export class extractProblemService {
     }
   }
 
-  async extractProblem(data: number) {
+  async extractProblem(problem_id: number) {
     try {
-      console.log(data);
+      console.log(problem_id);
       const response = await this.SupabaseService.getClient().rpc(
         'getproblemdata',
-        { problem_id: data },
+        { problem_id},
       );
       console.log(response);
       if (response.error) {

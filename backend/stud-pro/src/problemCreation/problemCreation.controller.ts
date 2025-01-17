@@ -49,6 +49,7 @@ export class ProblemCreationController {
       JSON.parse(req.body.actualTestCasesOutputs),
       req.body.problemLevel,
       req.body.totalMarks,
+      req.user.id
     );
     res.json(response);
   }

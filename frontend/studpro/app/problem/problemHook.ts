@@ -64,6 +64,7 @@ export function useCodeCompiler(page: any) {
     })
       .then((response) =>
         response.json().then((data) => {
+          console.log(data);
           if(data.message == 'Unauthorized' && data.statusCode == 401){
             localStorage.removeItem('access_token');
             window.location.href = '/authentication';
@@ -75,7 +76,7 @@ export function useCodeCompiler(page: any) {
             english: {
               title: data["problemtitle"],
               description: data["problemdescription"],
-              marks: data["actualmarks"],
+              marks: data["actualmarks"]?data["actualmarks"]:0,
               recievedMarks:data["receivedmarks"],
               examples: [
                 {
@@ -94,12 +95,13 @@ export function useCodeCompiler(page: any) {
             }
           };
           //.log(data["baseTestCasesOutput"]);
+          //console.log(questionData);
           setQuestionData(questionData);
           setBaseTestCaseInput(data["basetestcasesinput"]);
           setBaseTestCaseOutput(data["basetestcasesoutput"]);
           setActualTestCaseInputs(data["actualinput"]);
           setActualTestCaseOutputs(data["actualoutput"]);
-          setCode(data["problemcode"])
+          setCode(data["problemcode"]?data["problemcode"]:"");
           setActualMarks(data["actualmarks"]);
           const totalTestCases = data["actualinput"].length;
           const testCases: TestCase[] = [
