@@ -1,5 +1,5 @@
 // filepath: /Users/praveenkumargangapuram/Desktop/Projects/studPro/frontend/src/routes.ts
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://167.172.155.139/api';
 
 if (!backendUrl) {
     console.error('REACT_APP_BACKEND_URL is not defined');
