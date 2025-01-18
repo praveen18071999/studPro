@@ -57,7 +57,7 @@ export function FlowchartHook() {
       })
         .then((response) =>
           response.json().then((data) => {
-            //console.log(data);
+            //console.log(1);
             if(data.message == 'Unauthorized' && data.statusCode == 401){
               localStorage.removeItem('access_token');
               window.location.href = '/authentication';

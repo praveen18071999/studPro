@@ -64,7 +64,7 @@ export function useCodeCompiler(page: any) {
     })
       .then((response) =>
         response.json().then((data) => {
-          console.log(data);
+          //console.log(data);
           if (data.message == "Unauthorized" && data.statusCode == 401) {
             localStorage.removeItem("access_token");
             window.location.href = "/authentication";
