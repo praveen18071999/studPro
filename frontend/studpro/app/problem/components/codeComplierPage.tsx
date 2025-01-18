@@ -25,6 +25,7 @@ export default function CodeCompilerPage(id: any) {
     handleSubmit,
     setCode,
     setInput,
+    loading,
   } = useCodeCompiler(id.id)
 
   //console.log(questionData)
@@ -36,19 +37,26 @@ export default function CodeCompilerPage(id: any) {
         questionData={questionData}
         onQuestionLanguageChange={handleQuestionLanguageChange}
       />
-      <CodeEditor
-        selectedLanguage={selectedLanguage}
-        languages={languages}
-        code={code}
-        input={input}
-        output={output}
-        testCases={testCases}
-        onLanguageChange={handleLanguageChange}
-        onCodeChange={setCode}
-        onInputChange={setInput}
-        onRunCode={handleRunCode}
-        onSubmit={handleSubmit}
-      />
+     {loading ? (
+        <div className="flex items-center justify-center w-full h-full">
+          <div className="w-10 h-10 border-4 border-black-500 border-t-transparent border-t-4 border-t-blue-500 rounded-full animate-spin"></div>
+        </div>
+      ) : (
+        <CodeEditor
+          selectedLanguage={selectedLanguage}
+          languages={languages}
+          code={code}
+          input={input}
+          output={output}
+          testCases={testCases}
+          onLanguageChange={handleLanguageChange}
+          onCodeChange={setCode}
+          onInputChange={setInput}
+          onRunCode={handleRunCode}
+          onSubmit={handleSubmit}
+          loading={loading}
+        />
+      )}
     </div>
   )
 }

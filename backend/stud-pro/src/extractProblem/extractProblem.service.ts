@@ -14,7 +14,18 @@ export class extractProblemService {
 
   async extractLink(link: string) {
     try {
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch(
+        {
+          headless: true,
+          args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+          ],
+          executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
+        }
+      );
       const page = await browser.newPage();
       await page.goto(link, { waitUntil: 'networkidle2' });
 
@@ -69,16 +80,16 @@ export class extractProblemService {
 
   async extractProblem(problem_id: number) {
     try {
-      console.log(problem_id);
+      //console.log(problem_id);
       const response = await this.SupabaseService.getClient().rpc(
         'getproblemdata',
-        { problem_id},
+        { problem_id },
       );
-      console.log(response);
+      //console.log(response);
       if (response.error) {
         throw new Error(response.error.message);
       }
-      console.log(response);
+      //console.log(response);
       return { success: true, data: response.data };
     } catch (error) {
       console.error('Error extracting problem:', error);

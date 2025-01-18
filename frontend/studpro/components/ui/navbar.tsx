@@ -4,9 +4,10 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, LogOut, User } from 'lucide-react'
+import { Menu, X, LogOut, User} from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import logo from '../../images/image.png'
+import Routes from '../../routes'
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -14,6 +15,8 @@ export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const profileRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const [user, setUser] = useState(null)
+  const [email, setEmail] = useState(null)
 
   if (pathname === '/authentication') {
     return null
@@ -22,6 +25,23 @@ export default function Navbar() {
   const handleMenuToggle = () => {
     setIsOpen(!isOpen)
   }
+
+  useEffect(() => {
+    if(pathname != '/authenticaton'){
+    fetch(Routes.GET_USER_DETAILS, {
+      method: 'GET',
+      headers: {
+       // contentType: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+       // console.log(data)
+        setUser(data.name)
+        setEmail(data.email)
+    })}
+  }, [])
 
   const handleProfileToggle = () => {
     setIsProfileOpen(!isProfileOpen)
@@ -90,8 +110,8 @@ export default function Navbar() {
                   aria-labelledby="user-menu-button"
                 >
                   <div className="px-4 py-2">
-                    <div className="text-base font-medium leading-none text-gray-800 dark:text-white">User Name</div>
-                    <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">user@example.com</div>
+                    <div className="text-base font-medium leading-none text-gray-800 dark:text-white">{user}</div>
+                    <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">{email}</div>
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     <Link href="/userProfile" className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
@@ -134,8 +154,8 @@ export default function Navbar() {
                 <User className="h-10 w-10 rounded-full p-1 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white" />
               </div>
               <div className="ml-3">
-                <div className="text-base font-medium leading-none text-gray-800 dark:text-white">User Name</div>
-                <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">user@example.com</div>
+                <div className="text-base font-medium leading-none text-gray-800 dark:text-white">{user}</div>
+                <div className="text-sm font-medium leading-none text-gray-600 dark:text-gray-400">{email}</div>
               </div>
             </div>
             <div className="mt-3 px-2 space-y-1">

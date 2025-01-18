@@ -5,11 +5,10 @@ import { useAuth } from "../hooks/useAuth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { GoogleLoginButton } from "../components/GoogleLoginButton"
 
 export function LoginForm() {
   const { values, handleChange } = useForm({ email: '', password: '' })
-  const { error, handleLogin, handleGoogleLogin } = useAuth()
+  const { error, handleLogin } = useAuth()
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -52,7 +51,6 @@ export function LoginForm() {
           </span>
         </div>
       </div>
-      <GoogleLoginButton onClick={handleGoogleLogin} />
     </form>
   )
 }

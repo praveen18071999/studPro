@@ -19,7 +19,7 @@ export function problemsMonthChart() {
                     localStorage.removeItem('access_token');
                     window.location.href = '/authentication';
                 }
-                console.log(data);
+               // console.log(data);
                 setData(data);
             });
         });

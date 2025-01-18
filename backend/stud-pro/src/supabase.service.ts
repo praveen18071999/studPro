@@ -7,7 +7,7 @@ export class SupabaseService {
   private supabase: SupabaseClient;
 
   constructor(private configService: ConfigService) {
-    console.log('SUPABASE_URL', this.configService.get<string>('SUPABASE_URL'));
+    //console.log('SUPABASE_URL', this.configService.get<string>('SUPABASE_URL'));
     const SUPABASE_URL =
       this.configService.get<string>('SUPABASE_URL') ||
       'https://rkydvhsvwffocbkxmojg.supabase.co';

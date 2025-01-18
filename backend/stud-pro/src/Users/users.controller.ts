@@ -8,17 +8,20 @@ export class UsersController {
   constructor(private readonly userServive: UserService) {}
   @Patch('updateUser')
   async updateUser(@Req() req, @Res() res) {
-    const response = await this.userServive.updateUser(
-      req.body,
-      req.user.id,
-    );
+    const response = await this.userServive.updateUser(req.body, req.user.id);
     res.json(response);
   }
 
   @Get('getUser')
   async getUser(@Req() req, @Res() res) {
-    console.log(req.user.userId);
+    //console.log(req.user.userId);
     const response = await this.userServive.getUser(req.user.id);
     res.json(response);
+  }
+
+  @Get('userDetails') 
+  async userDetails(@Req() req, @Res() res) {
+    const user = await this.userServive.getUserDetails(req.user.id);
+    return res.json(user);
   }
 }

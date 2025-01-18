@@ -18,7 +18,7 @@ export class ProblemCompilerController {
         break;
       } 
     }
-    console.log(result);
+   // console.log(result);
     res.json(result);
   }
 
@@ -40,7 +40,7 @@ export class ProblemCompilerController {
     //console.log(successCount,req.body.input.length);
     if(successCount === req.body.input.length){
       //console.log(1);
-      const response=await this.problemCompilerService.updateProblem(req.body.problem,req.body.userid,"test",true,req.body.marks);
+      const response=await this.problemCompilerService.updateProblem(req.body.problem,req.user.id,req.body.code,true,req.body.marks);
       console.log(response);
     }
     res.json(result)

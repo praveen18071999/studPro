@@ -20,7 +20,7 @@ export function TableHook() {
         author: '',
       })
 
-console.log(currentPage)
+//console.log(currentPage)
     useEffect(() => {
         fetch(`${Routes.TABLE}?page=${currentPage}&title=${filters.link}&level=${filters.level}&marks=${filters.marks}&author=${filters.author}`, {
             method: "GET",
@@ -34,7 +34,7 @@ console.log(currentPage)
                     localStorage.removeItem('access_token');
                     window.location.href = '/authentication';
                 }
-                console.log(data);
+                //console.log(data);
                 setFilteredProblems(data);
                 setTotalPages(data.length?Math.ceil(data[0]['countallproblems']/10):0);
             });

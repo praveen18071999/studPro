@@ -26,15 +26,15 @@ export class AuthenticationService {
 
     if (user && (await bcrypt.compare(pass, user.password))) {
       const { password, ...result } = user;
-      console.log(result);
+     // console.log(result);
       return result;
     }
-    console.log('null');
+    //console.log('null');
     return null;
   }
 
   async login(user: any) {
-    console.log(user);
+    //console.log(user);
     const payload = { id: user.id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
@@ -49,7 +49,7 @@ export class AuthenticationService {
       .from('users')
       .insert([{ email, password: hashedPassword }])
       .select();
-    console.log(data, error);
+    //console.log(data, error);
     if (error) {
       throw new InternalServerErrorException('User registration failed');
     }

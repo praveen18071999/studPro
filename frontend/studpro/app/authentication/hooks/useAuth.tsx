@@ -2,7 +2,7 @@
 
 import {  useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { login, signup, googleLogin } from '../actions/auth'
+import { login, signup } from '../actions/auth'
 import { useToast } from "@/hooks/use-toast"
 
 export function useAuth() {
@@ -12,7 +12,6 @@ export function useAuth() {
   const handleLogin = async (email: string, password: string) => {
     try {
       const result = await login(email, password)
-      //console.log(result.accessToken)
       if (result.success) {
         localStorage.setItem('access_token', result.accessToken)
         router.push('/dashboard')
@@ -43,22 +42,8 @@ export function useAuth() {
     }
   }
 
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await googleLogin()
-      if (result.success) {
-        router.push('/dashboard')
-      } else {
-        //setError(result.error)
-        setError('An error occurred during Google login')
-        toast({ title: 'UnSuccessfull', description: 'Invalid credentials' })
-      }
-    } catch (err) {
-      toast( {title:'UnSuccessfull',description:'An error occurred during Google login'})
-      setError('An error occurred during Google login'+err)
-    }
-  }
 
-  return { error, handleLogin, handleSignup, handleGoogleLogin }
+
+  return { error, handleLogin, handleSignup }
 }
 

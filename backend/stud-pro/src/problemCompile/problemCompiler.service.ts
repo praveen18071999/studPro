@@ -69,6 +69,7 @@ export class ProblemCompilerService {
     subsuc: boolean,
     mar: number,
   ) {
+   // console.log(prob, user_id, code, subsuc, mar);
     const {data,error} = await this.supabaseService
       .getClient()
       .rpc('updateorcreaterowinproblemtable', {
@@ -78,13 +79,13 @@ export class ProblemCompilerService {
         subsuc,
         user_id,
       });
-      console.log(data,error);
+      //console.log(data,error);
     return data;
   }
 }
 
 function getFileExtension(language: string): string {
-  console.log(language);
+  //console.log(language);
   switch (language) {
     case 'c':
       return 'c';
@@ -108,12 +109,12 @@ function getCommand(
   outputFile: string,
   tempDir: string,
 ): string {
-  console.log(language);
+  //console.log(language);
   switch (language) {
     case 'c':
       return `gcc -o program ${codeFile} && ./program < ${inputFile} > ${outputFile}`;
     case 'cpp':
-      return `g++ -o program ${codeFile} && ./program < ${inputFile} > ${outputFile}`;
+      return `g++ -std=c++11 -o program ${codeFile} && ./program < ${inputFile} > ${outputFile}`;
     case 'java':
       return `javac ${codeFile} && java -cp ${tempDir} Program < ${inputFile} > ${outputFile}`;
     case 'python':

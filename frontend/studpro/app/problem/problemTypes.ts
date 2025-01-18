@@ -28,4 +28,5 @@ export interface CodeEditorProps {
   onInputChange: (value: string) => void
   onRunCode: () => void
   onSubmit: () => void
+  loading: boolean
 }

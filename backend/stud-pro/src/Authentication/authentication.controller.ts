@@ -1,4 +1,4 @@
-import { Controller, Post, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 
 @Controller('authentication')
@@ -27,4 +27,5 @@ export class AuthenticationController {
     }
     return res.json(user);
   }
+
 }

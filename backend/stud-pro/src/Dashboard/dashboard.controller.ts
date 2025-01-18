@@ -8,7 +8,7 @@ export class DashboardController {
   constructor(private readonly DashboardService: DashboardService) {}
   @Get('getProblemLevelDashboardCharts')
   async getDashboardCharts(@Req() req) {
-    console.log(req.user);
+    //console.log(req.user);
     return await this.DashboardService.getProblemDashboardCharts(req.user.id);
   }
 

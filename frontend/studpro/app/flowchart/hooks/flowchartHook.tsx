@@ -17,6 +17,7 @@ export function FlowchartHook() {
   const [geminiCode, setGeminicode] = useState("");
   const [flowchartSvg, setFlowchartSvg] = useState<string | null>(null);
   const svgRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const languages = {
     javascript: { name: "JavaScript", extension: javascript() },
     python: { name: "Python", extension: python() },
@@ -44,6 +45,7 @@ export function FlowchartHook() {
     };
 
     try {
+      setIsLoading(true);
       fetch(url, {
         method: "POST",
         headers: {
@@ -54,13 +56,14 @@ export function FlowchartHook() {
       })
         .then((response) =>
           response.json().then((data) => {
-            console.log(data);
+            //console.log(data);
             if(data.message == 'Unauthorized' && data.statusCode == 401){
               localStorage.removeItem('access_token');
               window.location.href = '/authentication';
           }
             
             setGeminicode(data.actualOutput);
+            setIsLoading(false);
           })
         )
         .catch((error) => console.error("Error:", error));
@@ -90,6 +93,7 @@ export function FlowchartHook() {
       downloadLink.click();
       document.body.removeChild(downloadLink);
       URL.revokeObjectURL(svgUrl);
+      //setIsLoading(false);
     }
   };
   return {
@@ -100,5 +104,6 @@ export function FlowchartHook() {
     handleCodeChange,
     handleRunCode,
     handleDownloadSVG,
+    isLoading,
   };
 }

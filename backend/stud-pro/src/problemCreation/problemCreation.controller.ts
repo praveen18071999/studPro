@@ -21,7 +21,7 @@ export class ProblemCreationController {
 
   @Post('createProblem')
   async createProblem(@Req() req, @Res() res) {
-    console.log(req.body);
+    //console.log(req.body);
     const response = await this.ProblemCreationService.createProblem(
       req.body.questionLink,
       req.body.problemTitle,

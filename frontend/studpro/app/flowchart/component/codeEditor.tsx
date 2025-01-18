@@ -12,7 +12,7 @@ export default function CodeEditor() {
         svgRef,
         handleCodeChange,
         handleRunCode,
-        handleDownloadSVG } = FlowchartHook();
+        handleDownloadSVG,isLoading } = FlowchartHook();
         
     return (
         <div className="flex flex-col h-full p-8">
@@ -30,12 +30,17 @@ export default function CodeEditor() {
             <button onClick={handleDownloadSVG} className="mt-4 p-2 bg-green-500 text-white rounded">
                 Download SVG
             </button>
-            <div className="mt-4">
+            {(isLoading) ? (
+                <div className="flex items-center justify-center w-full h-full p-20">
+                    <div className="w-10 h-10 border-4 border-black-500 border-t-transparent border-t-4 border-t-blue-500 rounded-full animate-spin"></div>
+                </div>
+            ): <div className="mt-4">
             
-                {flowchartSvg && (
-                    <div dangerouslySetInnerHTML={{ __html: flowchartSvg }} ref={svgRef} />
-                )} 
-             </div>
+            {flowchartSvg && (
+                <div dangerouslySetInnerHTML={{ __html: flowchartSvg }} ref={svgRef} />
+            )} 
+         </div>}
+            
         </div>
     )
 }

@@ -15,22 +15,21 @@ export const languages: Language[] = [
 ];
 
 export const questionLanguages: QuestionLanguage[] = [
-  { name: "English", value: "english" }
+  { name: "English", value: "english" },
 ];
 
 const temp = {
   english: {
     title: "",
-    description:
-      "",
-    
+    description: "",
+
     examples: [
-      { input: "", output:""},
-      { input: "", output: ""},
+      { input: "", output: "" },
+      { input: "", output: "" },
     ],
     marks: "",
     recievedMarks: "",
-  }
+  },
 };
 
 export function useCodeCompiler(page: any) {
@@ -54,30 +53,31 @@ export function useCodeCompiler(page: any) {
   const [actualTestCaseOutputs, setActualTestCaseOutputs] = useState([""]);
   const [totalTestCasesInput, setTotalTestCasesInput] = useState([""]);
   const [totalTestCasesOutput, setTotalTestCasesOutput] = useState([""]);
-    useEffect(() => {
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
     fetch(`${Routes.PROBLEM_DATA}/${page}`, {
       method: "GET",
-      headers: { "Content-Type": "application/json",
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
-      
     })
       .then((response) =>
         response.json().then((data) => {
           console.log(data);
-          if(data.message == 'Unauthorized' && data.statusCode == 401){
-            localStorage.removeItem('access_token');
-            window.location.href = '/authentication';
-        }
+          if (data.message == "Unauthorized" && data.statusCode == 401) {
+            localStorage.removeItem("access_token");
+            window.location.href = "/authentication";
+          }
           data = data.data[0];
           //console.log(data);
-          
+
           const questionData = {
             english: {
               title: data["problemtitle"],
               description: data["problemdescription"],
-              marks: data["actualmarks"]?data["actualmarks"]:0,
-              recievedMarks:data["receivedmarks"],
+              marks: data["actualmarks"] ? data["actualmarks"] : 0,
+              recievedMarks: data["receivedmarks"],
               examples: [
                 {
                   input: data["basetestcasesinput"][0],
@@ -92,7 +92,7 @@ export function useCodeCompiler(page: any) {
                   output: data["basetestcasesoutput"][2],
                 },
               ],
-            }
+            },
           };
           //.log(data["baseTestCasesOutput"]);
           //console.log(questionData);
@@ -101,30 +101,37 @@ export function useCodeCompiler(page: any) {
           setBaseTestCaseOutput(data["basetestcasesoutput"]);
           setActualTestCaseInputs(data["actualinput"]);
           setActualTestCaseOutputs(data["actualoutput"]);
-          setCode(data["problemcode"]?data["problemcode"]:"");
+          setCode(data["problemcode"] ? data["problemcode"] : "");
           setActualMarks(data["actualmarks"]);
+          
           const totalTestCases = data["actualinput"].length;
           const testCases: TestCase[] = [
             { id: 0, status: "pending" },
             { id: 1, status: "pending" },
             { id: 2, status: "pending" },
           ];
-  
-          for(let i = 0; i < totalTestCases; i++) {
-            testCases.push({id:i+3, status: "pending"});
+
+          for (let i = 0; i < totalTestCases; i++) {
+            testCases.push({ id: i + 3, status: "pending" });
           }
-        
+
           setTestCases(testCases);
         })
       )
       .catch((error) => console.error("Error:", error));
   }, []);
+
+  useEffect(() => {
+    setTotalTestCasesInput([...baseTestCaseInput, ...actualTestCaseInputs]);
+    setTotalTestCasesOutput([...baseTestCaseOutput, ...actualTestCaseOutputs]);
+  }, [actualTestCaseInputs, actualTestCaseOutputs, baseTestCaseInput, baseTestCaseOutput]);
   useEffect(() => {
     setTestCaseInput([input]);
     setTestCaseOutput([""]);
   }, [input]);
   useEffect(() => {
     if (code) {
+      setLoading(true);
       const data = {
         language: selectedLanguage.value,
         code: code,
@@ -135,17 +142,18 @@ export function useCodeCompiler(page: any) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
         body: JSON.stringify(data),
       })
         .then((response) =>
           response.json().then((data) => {
-            if(data.message == 'Unauthorized' && data.statusCode == 401){
-              localStorage.removeItem('access_token');
-              window.location.href = '/authentication';
-          }
+            if (data.message == "Unauthorized" && data.statusCode == 401) {
+              localStorage.removeItem("access_token");
+              window.location.href = "/authentication";
+            }
             setCode(data["actualOutput"]);
+            setLoading(false);
           })
         )
         .catch((error) => console.error("Error:", error));
@@ -179,30 +187,34 @@ export function useCodeCompiler(page: any) {
       input: input ? testCaseInput : baseTestCaseInput,
       expectedOutput: input ? testCaseOutput : baseTestCaseOutput,
     };
+    setOutput("Running Base Test Cases...");
     fetch(Routes.COMPILE_AND_RUN, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
       body: JSON.stringify(data),
     })
       .then((response) =>
         response.json().then((data) => {
-          if(data.message == 'Unauthorized' && data.statusCode == 401){
-            localStorage.removeItem('access_token');
-            window.location.href = '/authentication';
-        }
-          console.log(data);
-          if (input || data) setOutput(data[0].actualOutput);
+          if (data.message == "Unauthorized" && data.statusCode == 401) {
+            localStorage.removeItem("access_token");
+            window.location.href = "/authentication";
+          }
+          //console.log(data);
+          if (input) setOutput(data[0].actualOutput);
           else if (data[0].error) setOutput(data[0].error);
           else {
             setTestCases(
               testCases.map((testCase, index) => {
-                if(index>2)
-                  return { ...testCase, status: "pending" };
-                const normalizedActualOutput = data[index].actualOutput.trim().replace(/\s+/g, ' ');
-                const normalizedExpectedOutput = baseTestCaseOutput[index].trim().replace(/\s+/g, ' ');
+                if (index > 2) return { ...testCase, status: "pending" };
+                const normalizedActualOutput = data[index].actualOutput
+                  .trim()
+                  .replace(/\s+/g, " ");
+                const normalizedExpectedOutput = baseTestCaseOutput[index]
+                  .trim()
+                  .replace(/\s+/g, " ");
                 if (normalizedActualOutput === normalizedExpectedOutput) {
                   return { ...testCase, status: "passed" };
                 } else {
@@ -210,7 +222,7 @@ export function useCodeCompiler(page: any) {
                 }
               })
             );
-            setOutput("");
+            setOutput("Base Test Cases has Executed Successfully. Check the Status Below for testcases");
           }
         })
       )
@@ -222,41 +234,48 @@ export function useCodeCompiler(page: any) {
       setOutput("Please enter some code to run.");
       return;
     }
-    setTotalTestCasesInput([...baseTestCaseInput, ...actualTestCaseInputs]);
-    setTotalTestCasesOutput([...baseTestCaseOutput, ...actualTestCaseOutputs]);
-   // console.log(totalTestCasesInput);
+    //setTotalTestCasesInput([...baseTestCaseInput, ...actualTestCaseInputs]);
+    //setTotalTestCasesOutput([...baseTestCaseOutput, ...actualTestCaseOutputs]);
+    // console.log(totalTestCasesInput);
     //console.log(totalTestCasesOutput);
-    const data = {
+    console.log(totalTestCasesInput);
+    console.log(totalTestCasesOutput);
+    const postingData = {
       language: selectedLanguage.value,
-      problem: 4,
-      userid:18,
+      problem: page,
       code: code,
       marks: actualmarks,
       input: input ? testCaseInput : totalTestCasesInput,
       expectedOutput: input ? testCaseOutput : totalTestCasesOutput,
     };
+    //console.log(postingData);
+    setOutput("Running All Test Cases...");
     fetch(Routes.SUBMIT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(postingData),
     })
       .then((response) =>
         response.json().then((data) => {
-          if(data.message == 'Unauthorized' && data.statusCode == 401){
-            localStorage.removeItem('access_token');
-            window.location.href = '/authentication';
-        }
-          //console.log(data);
+          if (data.message == "Unauthorized" && data.statusCode == 401) {
+            localStorage.removeItem("access_token");
+            window.location.href = "/authentication";
+          }
+          
           if (input) setOutput(data[0].actualOutput);
           else if (data[0].error) setOutput(data[0].error);
           else {
             setTestCases(
               testCases.map((testCase, index) => {
-                const normalizedActualOutput = data[index].actualOutput.trim().replace(/\s+/g, ' ');
-                const normalizedExpectedOutput = totalTestCasesOutput[index].trim().replace(/\s+/g, ' ');
+                const normalizedActualOutput = data[index].actualOutput
+                  .trim()
+                  .replace(/\s+/g, " ");
+                const normalizedExpectedOutput = totalTestCasesOutput[index]
+                  .trim()
+                  .replace(/\s+/g, " ");
                 if (normalizedActualOutput === normalizedExpectedOutput) {
                   return { ...testCase, status: "passed" };
                 } else {
@@ -264,12 +283,11 @@ export function useCodeCompiler(page: any) {
                 }
               })
             );
-            setOutput("");
+            setOutput("Submitted Successfully check the Status Below for testcases");
           }
         })
       )
       .catch((err) => console.log(err));
-    
   };
 
   return {
@@ -289,5 +307,7 @@ export function useCodeCompiler(page: any) {
     handleSubmit,
     setCode,
     setInput,
+    loading,
+    setLoading,
   };
 }
